@@ -8,5 +8,10 @@ Nothing really fancy, but could be much more improved with an automated cutting 
 Steps:
 
 1. Get an .mp3 file from the desired song. 
-2. 
+
+   Easy way (works on 02/01/2021): https://freemp3cloud.com/
+
+2. Get the full lyrics of the song.
+
+   
 
