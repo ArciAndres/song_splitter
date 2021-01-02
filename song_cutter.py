@@ -3,6 +3,10 @@
 import numpy as np
 import os
 from pathlib import Path
+from time import time, sleep
+import pandas as pd
+import json
+
 #%%
 
 cwd = Path('./') # Current working directory
@@ -18,6 +22,43 @@ assert os.path.exists(song_path) , "Please add an .mp3 file of the song with the
 
 #%%
 
+## Read lyrics file
 
-song_name
+with open(lyrics_path, 'r', encoding='utf-8') as f:
+    lyrics = f.read().splitlines()
+    
 
+#%%
+timestamps = []
+
+## Intro
+print(">>> Start playing the song in ", end='')
+print("4, ", end=''); sleep(1)
+print("3, ", end=''); sleep(1)
+print("2, ", end=''); sleep(1)
+print("1, ", end=''); sleep(1)
+print("GO!")
+
+start = time()
+for i, sentence in enumerate(lyrics):
+    
+    timestamp = {'i': i , 'sentence': sentence}
+    
+    print('\n> ', sentence, '[ _ , _ ]')
+  
+    if input().startswith('x'): break        
+    t = time() - start
+    timestamp['t0'] = t
+    print('> ', sentence, '[ {:.3f}'.format(timestamp['t0']), ', _ ]')
+
+    if input().startswith('x'): break
+    t = time() - start
+    timestamp['t1'] = t
+    print('> ', sentence, '[ {:.3f}'.format(timestamp['t0']), ', {:.3f} ]'.format(timestamp['t1']))   
+
+    timestamps.append(timestamp)
+    
+    
+#%%
+
+df = pd.DataFrame(timestamps)
