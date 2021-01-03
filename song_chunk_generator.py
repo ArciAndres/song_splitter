@@ -144,7 +144,7 @@ if __name__ == "__main__":
 
 # parser = get_parser()
 # args = parser.parse_args("")
-# args.song_name = "Mark Forster - Chöre"
+# args.song_name = "AnnenMayKantereit - Freitagabend"
 
 # cwd = Path('./') # Current working directory
 
