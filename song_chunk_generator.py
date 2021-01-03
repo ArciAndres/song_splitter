@@ -6,6 +6,8 @@ import re
 from time import time, sleep
 import pandas as pd
 import argparse
+from pygame import mixer
+
 
 __version__ = '0.1.0'
 __author__ = u'Andrés Arciniegas'
@@ -36,10 +38,11 @@ def song_chunk_generator(args):
     song_path = cwd / 'songs' / (song_name+'.mp3')
     export_folder = cwd / 'export' / (song_name)
     
-    assert (export_folder / 'timestamps.json').exists(), "You must create the timestamps before generating the chunks."
+    ts_file = (export_folder / 'timestamps.csv')
+    assert ts_file.exists(), "You must create the timestamps before generating the chunks."
     
-    with open(export_folder / 'timestamps.json') as f:
-        timestamps = json.load(f)
+    df = pd.read_csv(ts_file, sep='_', encoding='utf-8-sig')
+    timestamps = df.T.to_dict().values()
     
     ## Generate audio chunks from timestapms
     song = pydub.AudioSegment.from_mp3(str(song_path))
@@ -81,33 +84,44 @@ def timestamps_generator(args):
     
     print(">>> Start playing the song in ", end='')
     
-    for i in range(args.waiting_time+1,1, -1):
+    for i in range(args.wait_time,0, -1):
         print("%d, " %i, end=''); sleep(1)
-    print("PLAY THE SONG! GO!")
+    print("\nMUSIC ON!!")
     
+    mixer.init()
+    mixer.music.load(str(song_path)) # you may use .mp3 but support is limited
+    mixer.music.play()
+
     start = time()
     
     # Start the timestamp sequence. Pay special attention. 
-    for i, sentence in enumerate(lyrics):
+    for i, sentence in enumerate(lyrics[0:3]):
         
         timestamp = {'i': i , 'sentence': sentence}
         
-        print('\n> ', sentence, '[ _ , _ ]')
+        print('\n> ', sentence)
+        print('> ', '[ _ , _ ]')
       
         if input().startswith('x'): break        
         t = time() - start
         timestamp['t0'] = t
-        print('> ', sentence, '[ {:.3f}'.format(timestamp['t0']), ', _ ]')
+        print('> ', sentence)
+        print('> ', '[ {:.3f}'.format(timestamp['t0']), ', _ ]')
     
         if input().startswith('x'): break
         t = time() - start
         timestamp['t1'] = t
-        print('> ', sentence, '[ {:.3f}'.format(timestamp['t0']), ', {:.3f} ]'.format(timestamp['t1']))   
+        print('> ', sentence)
+        print('> ', '[ {:.3f}'.format(timestamp['t0']), ', {:.3f} ]'.format(timestamp['t1']))   
     
         timestamps.append(timestamp)
-
-    with open(export_folder / 'timestamps.json', 'w') as f:
-        json.dump(timestamps, f)
+        
+    mixer.music.stop()
+    df = pd.DataFrame(timestamps)
+    export_file = export_folder / 'timestamps.csv'
+    df.to_csv(export_file, sep='_', encoding='utf-8-sig')
+    print("==== End of lyrics =====")
+    print(">> Timestamps saved successfully in ", (export_file))
         
 #%%    
 def main(args=None):
@@ -123,20 +137,21 @@ def main(args=None):
 if __name__ == "__main__":
     main()
 #%%
-#Test 
+# #Test 
 
-parser = get_parser()
-args = parser.parse_args("")
-args.song_name = "Mark Foster - Chöre"
+# parser = get_parser()
+# args = parser.parse_args("")
+# args.song_name = "Mark Forster - Chöre"
 
-cwd = Path('./') # Current working directory
+# cwd = Path('./') # Current working directory
 
-song_name = args.song_name
-song_path = cwd / 'songs' / (song_name+'.mp3')
-export_folder = cwd / 'export' / (song_name)
-#%%
-from pydub import AudioSegment
-from pydub.playback import play
+# song_name = args.song_name
+# song_path = cwd / 'songs' / (song_name+'.mp3')
+# export_folder = cwd / 'export' / (song_name)
 
-song = AudioSegment.from_mp3(str(song_path))
-play(song)
+# #%%
+# timestamps_generator(args)
+# #%%
+# from pdb import set_trace
+# #set_trace()
+# song_chunk_generator(args)
