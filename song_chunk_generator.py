@@ -48,7 +48,7 @@ def song_chunk_generator(args):
     
     for ts in timestamps:
         ## Trims the audio piece in the indicated interval (in milliseconds)
-        newAudio = song[ts['t0']*1000:ts['t1']*1000]
+        newAudio = song[(ts['t0']-0.3)*1000:(ts['t1']+0.3)*1000]
         audio_name = "%d. %s.mp3" %(ts['i'], ts['sentence'])    
         # Remove illegal path characters
         audio_name = re.sub('[^\w\-_\. ]', '', audio_name) 
