@@ -13,5 +13,13 @@ Steps:
 
 2. Get the full lyrics of the song.
 
+3. 
+
    
+
+## Troubleshooting
+
+* If `pydub` presents problems, make sure you have `ffmpeg` installed. The package can be installed with `conda` as:
+
+  `conda install -c conda-forge ffmpeg`
 

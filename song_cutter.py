@@ -59,8 +59,7 @@ timestamps = []
 #     print('> ', sentence, '[ {:.3f}'.format(timestamp['t0']), ', {:.3f} ]'.format(timestamp['t1']))   
 
 #     timestamps.append(timestamp)
-    
-    
+
 #%%
 
 # df = pd.DataFrame(timestamps)
@@ -77,33 +76,13 @@ with open(export_folder / 'timestamps.json') as f:
 #%%
 
 import pydub 
-import numpy as np
 
-def read(f, normalized=False):
-    """MP3 to numpy array"""
-    a = pydub.AudioSegment.from_mp3(f)
-    y = np.array(a.get_array_of_samples())
-    if a.channels == 2:
-        y = y.reshape((-1, 2))
-    if normalized:
-        return a.frame_rate, np.float32(y) / 2**15
-    else:
-        return a.frame_rate, y
+#%%
+audio = pydub.AudioSegment.from_mp3(str(song_path))
 
-def write(f, sr, x, normalized=False):
-    """numpy array to MP3"""
-    channels = 2 if (x.ndim == 2 and x.shape[1] == 2) else 1
-    if normalized:  # normalized array - each item should be a float in [-1, 1)
-        y = np.int16(x * 2 ** 15)
-    else:
-        y = np.int16(x)
-    song = pydub.AudioSegment(y.tobytes(), frame_rate=sr, sample_width=2, channels=channels)
-    song.export(f, format="mp3", bitrate="320k")
-# #%%
+newAudio = audio[0:3000]
+newAudio.export('newSong.mp3', format="mp3") #Exports to a wav file in the current path.
 
-# song = read(song_path)
-
-# pydub.AudioSegment.from_mp3(str(song_path))
 #%%
 
 import os
@@ -133,4 +112,5 @@ def print_plot_play(x, Fs, text=''):
     plt.show()
     ipd.display(ipd.Audio(data=x, rate=Fs))
 # Read mp3
-x, Fs = librosa.load(song_path, sr=None)
+x, Fs = librosa.load(str(song_path))
+#x, Fs = librosa.load(librosa.util.example_audio_file())
