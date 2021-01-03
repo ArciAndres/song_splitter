@@ -34,8 +34,10 @@ def song_chunk_generator(args):
     cwd = Path('./') # Current working directory
     
     song_name = args.song_name
-    song_path = cwd / 'songs' / (song_name+'.mp3')
-    export_folder = cwd / 'export' / (song_name)
+    
+    song_folder = cwd / 'songs' / song_name
+    song_path = song_folder / 'song.mp3'
+    export_folder = song_folder / 'export'
     
     ts_file = (export_folder / 'timestamps.csv')
     assert ts_file.exists(), "You must create the timestamps before generating the chunks."
@@ -64,13 +66,15 @@ def timestamps_generator(args):
     
     song_name = args.song_name
     
-    lyrics_path = cwd / 'lyrics' / (song_name+'.txt')
-    song_path = cwd / 'songs' / (song_name+'.mp3')
-    export_folder = cwd / 'export' / (song_name)
+    song_folder = cwd / 'songs' / song_name
     
-    assert os.path.exists(lyrics_path) , "Please add a text file with the lyrics with the name " + song_name + ".txt to the folder 'lyrics'"
-    assert os.path.exists(song_path) , "Please add an .mp3 file of the song with the name " + song_name + ".mp3 to the folder 'songs'"
-    if not export_folder.exists():
+    song_path = song_folder / 'song.mp3'
+    lyrics_path = song_folder / 'lyrics.txt'
+    export_folder = song_folder / 'export'
+    
+    assert os.path.exists(lyrics_path) , ("Please add a text (lyrics.txt) to the folder " / song_folder)
+    assert os.path.exists(song_path) , ("Please add an audio file (song.mp3) to the folder " / song_folder)
+    if not song_folder.exists():
         export_folder.mkdir()
     
     ## Read lyrics file
@@ -136,7 +140,7 @@ def main(args=None):
 if __name__ == "__main__":
     main()
 #%%
-# #Test 
+#Test 
 
 # parser = get_parser()
 # args = parser.parse_args("")
