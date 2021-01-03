@@ -128,4 +128,15 @@ if __name__ == "__main__":
 parser = get_parser()
 args = parser.parse_args("")
 args.song_name = "Mark Foster - Chöre"
-    
+
+cwd = Path('./') # Current working directory
+
+song_name = args.song_name
+song_path = cwd / 'songs' / (song_name+'.mp3')
+export_folder = cwd / 'export' / (song_name)
+#%%
+from pydub import AudioSegment
+from pydub.playback import play
+
+song = AudioSegment.from_mp3(str(song_path))
+play(song)
