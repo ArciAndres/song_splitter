@@ -93,9 +93,9 @@ For this example, I will add a song in German with English translations.
 
    In Excel, copy the two columns together (original and translation), and then click on "Bulk add words".
 
-   ![AddWords](readme\AddWords.png)
+   ![AddWords](readme\\AddWords.png)
 
-   ![AddToMemrise](readme\AddToMemrise.png)
+   ![AddToMemrise](readme\\AddToMemrise.png)
 
    Memrise automatically deletes any repeated sentence on the list.
 
@@ -103,7 +103,7 @@ For this example, I will add a song in German with English translations.
 
    At this step you can ignore parts you prefer not to upload, and choose the best audio part to connect. 
 
-![MemriseFileLoad](readme\MemriseFileLoad.png)
+![MemriseFileLoad](readme\\MemriseFileLoad.png)
 
 5. Save the list, and start learning :D.
 
