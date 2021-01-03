@@ -24,7 +24,7 @@ def get_parser():
     parser.add_argument('--song_name', type=str, help='Name of the song to be processed. Audio and lyrics file have to match this name.')
     parser.add_argument('--wait_time', type=int, default=5, help='Number of seconds to wait for the user to play the song.')
     parser.add_argument('--song_chunks', '-sc', default=False, action='store_true')
-    parser.add_argument('--generate_timestamps', '-gt', default=False, action='store_true')
+    parser.add_argument('--timestamps', '-ts', default=False, action='store_true')
     
     return parser
 
@@ -142,19 +142,19 @@ if __name__ == "__main__":
 #%%
 #Test 
 
-# parser = get_parser()
-# args = parser.parse_args("")
-# args.song_name = "AnnenMayKantereit - Freitagabend"
+parser = get_parser()
+args = parser.parse_args("")
+args.song_name = "AnnenMayKantereit - Freitagabend"
 
-# cwd = Path('./') # Current working directory
+cwd = Path('./') # Current working directory
 
-# song_name = args.song_name
-# song_path = cwd / 'songs' / (song_name+'.mp3')
-# export_folder = cwd / 'export' / (song_name)
+song_name = args.song_name
+song_path = cwd / 'songs' / (song_name+'.mp3')
+export_folder = cwd / 'export' / (song_name)
 
-# #%%
-# timestamps_generator(args)
-# #%%
-# from pdb import set_trace
-# #set_trace()
-# song_chunk_generator(args)
+#%%
+timestamps_generator(args)
+#%%
+from pdb import set_trace
+#set_trace()
+song_chunk_generator(args)
