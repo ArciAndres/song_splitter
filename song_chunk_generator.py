@@ -74,7 +74,7 @@ def timestamps_generator(args):
     
     assert os.path.exists(lyrics_path) , ("Please add a text (lyrics.txt) to the folder " / song_folder)
     assert os.path.exists(song_path) , ("Please add an audio file (song.mp3) to the folder " / song_folder)
-    if not song_folder.exists():
+    if not export_folder.exists():
         export_folder.mkdir()
     
     ## Read lyrics file
@@ -131,7 +131,7 @@ def main(args=None):
     parser = get_parser()
     args = parser.parse_args(args)
     
-    if args.generate_timestamps:
+    if args.timestamps:
         timestamps_generator(args)
     
     if args.song_chunks:
@@ -142,19 +142,19 @@ if __name__ == "__main__":
 #%%
 #Test 
 
-parser = get_parser()
-args = parser.parse_args("")
-args.song_name = "AnnenMayKantereit - Freitagabend"
+# parser = get_parser()
+# args = parser.parse_args("")
+# args.song_name = "Jürgen Marcus - Eine neue Liebe ist wie neues Leben"
 
-cwd = Path('./') # Current working directory
+# cwd = Path('./') # Current working directory
 
-song_name = args.song_name
-song_path = cwd / 'songs' / (song_name+'.mp3')
-export_folder = cwd / 'export' / (song_name)
+# song_name = args.song_name
+# song_path = cwd / 'songs' / (song_name+'.mp3')
+# export_folder = cwd / 'export' / (song_name)
 
-#%%
-timestamps_generator(args)
-#%%
-from pdb import set_trace
-#set_trace()
-song_chunk_generator(args)
+# #%%
+# timestamps_generator(args)
+# #%%
+# from pdb import set_trace
+# #set_trace()
+# song_chunk_generator(args)
