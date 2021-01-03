@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-import json
 import pydub 
 import re
 from time import time, sleep
@@ -24,8 +23,8 @@ def get_parser():
     parser.add_argument('--version', '-v', action='version', version=version)
     parser.add_argument('--song_name', type=str, help='Name of the song to be processed. Audio and lyrics file have to match this name.')
     parser.add_argument('--wait_time', type=int, default=5, help='Number of seconds to wait for the user to play the song.')
-    parser.add_argument('--song_chunks', default=False, action='store_true')
-    parser.add_argument('--generate_timestamps', default=False, action='store_true')
+    parser.add_argument('--song_chunks', '-sc', default=False, action='store_true')
+    parser.add_argument('--generate_timestamps', '-gt', default=False, action='store_true')
     
     return parser
 
@@ -95,7 +94,7 @@ def timestamps_generator(args):
     start = time()
     
     # Start the timestamp sequence. Pay special attention. 
-    for i, sentence in enumerate(lyrics[0:3]):
+    for i, sentence in enumerate(lyrics):
         
         timestamp = {'i': i , 'sentence': sentence}
         
