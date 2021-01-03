@@ -5,15 +5,42 @@ Nothing really fancy, but could be much more improved with an automated cutting 
 
 ## Operation
 
+### Create Song Chunks
+
 Steps:
 
-1. Get an .mp3 file from the desired song. 
+0. (Only once)
+
+   `git clone git@github.com:ArciAndres/song_splitter.git`
+
+   `cd song_splitter`
+
+1. Create a folder of the desired song in the `songs` folder. 
+
+   The suggestion of the convention is: `Author - name_of_the_song`, but it is optional. 
+
+2. Get an .mp3 file from the desired song and put in the the created folder with the name `song.mp3`. 
 
    Easy way (works on 02/01/2021): https://freemp3cloud.com/
 
-2. Get the full lyrics of the song.
+3. Get the full lyrics of the song, save in a text file and name it `lyrics.txt`.
 
-3. 
+   By now, the structure of the folder should see like this:
+
+   ```
+   ​```
+   song_splitter
+   │   README.md
+   │   file001.txt    
+   │
+   └───songs
+   │   │   Author_name-song
+   │   │   |	song.mp3
+   |	|	|	lyrics.txt
+   ​```
+   ```
+
+   
 
 4. Load the files to Memrise. Does not take long, but must be done manually :(. (Someone could contribute with an desktop automation script to do this).
 
